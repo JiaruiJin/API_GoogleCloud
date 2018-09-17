@@ -1,35 +1,29 @@
 #!/usr/bin/env python
 # encoding: utf-8
-#Author - Prateek Mehta
+#Author - Jiarui Jin
 
 
-import tweepy #https://github.com/tweepy/tweepy
+import tweepy
 import json
 
-
-#Twitter API credentials
-consumer_key = "Enter the consumer_key"
-consumer_secret = "Enter the consumer_secret"
-access_key = "Enter the access_key"
-access_secret = "Enter the access_secret"
+consumer_key = "olzksrVk97qC5pCYJFB0lTZva"
+consumer_secret = "5Kg5hQlx0PumRCygVrTxxb6lHO9C7OHgOphGCeZrZ2cQ1uwL1F"
+access_key = "1040408442765225991-YTfbydqnrVpx0W825HFi6aBjqaVcub"
+access_secret = "imxWQsgNdcSbBU6mYxmfeyUYLmpCyhorxYQfslyvpqacT"
 
 
 def get_all_tweets(screen_name):
-    
-    #Twitter only allows access to a users most recent 3240 tweets with this method
-    
-    #authorize twitter, initialize tweepy
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_key, access_secret)
     api = tweepy.API(auth)
-    
-    #initialize a list to hold all the tweepy Tweets
+        
     alltweets = []    
     
     #make initial request for most recent tweets (200 is the maximum allowed count)
     new_tweets = api.user_timeline(screen_name = screen_name,count=10)
     
     #save most recent tweets
+    #.append different?
     alltweets.extend(new_tweets)
     
     #save the id of the oldest tweet less one
@@ -48,16 +42,16 @@ def get_all_tweets(screen_name):
         oldest = alltweets[-1].id - 1
         if(len(alltweets) > 15):
             break
-        print "...%s tweets downloaded so far" % (len(alltweets))
+        #print "...%s tweets downloaded so far" % (len(alltweets))
        
     #write tweet objects to JSON
     file = open('tweet.json', 'w') 
-    print "Writing tweet objects to JSON please wait..."
+    #print "Writing tweet objects to JSON please wait..."
     for status in alltweets:
         json.dump(status._json,file,sort_keys = True,indent = 4)
     
     #close the file
-    print "Done"
+    #print "Done"
     file.close()
 
 if __name__ == '__main__':
