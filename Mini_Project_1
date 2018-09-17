@@ -2,9 +2,10 @@
 # encoding: utf-8
 #Author - Jiarui Jin
 
-
 import tweepy
+from tweepy import OAuthHandler
 import json
+import wget
 
 consumer_key = "olzksrVk97qC5pCYJFB0lTZva"
 consumer_secret = "5Kg5hQlx0PumRCygVrTxxb6lHO9C7OHgOphGCeZrZ2cQ1uwL1F"
@@ -42,17 +43,28 @@ def get_all_tweets(screen_name):
         oldest = alltweets[-1].id - 1
         if(len(alltweets) > 15):
             break
-        #print "...%s tweets downloaded so far" % (len(alltweets))
+        print( "...%s tweets downloaded so far" % (len(alltweets)))
+
+    #ger all media_url
+    media_files = set()
+    for status in alltweets:
+        media = status.entities.get('media', [])
+        if(len(media) > 0):
+          media_files.add(media[0]['media_url'])
+    
+    #download the pictures from media_url
+    for media_file in media_files:
+      wget.download(media_file)
        
     #write tweet objects to JSON
-    file = open('tweet.json', 'w') 
-    #print "Writing tweet objects to JSON please wait..."
-    for status in alltweets:
-        json.dump(status._json,file,sort_keys = True,indent = 4)
+    #file = open('tweet.json', 'w') 
+    #print("Writing tweet objects to JSON please wait...")
+    #for status in alltweets:
+    #    json.dump(status._json,file,sort_keys = True,indent = 4)
     
     #close the file
-    #print "Done"
-    file.close()
+    #print("Done")
+    #file.close()
 
 if __name__ == '__main__':
     #pass in the username of the account you want to download
