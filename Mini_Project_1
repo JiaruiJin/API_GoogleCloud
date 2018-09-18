@@ -11,10 +11,10 @@ import subprocess
 import argparse
 import os
 
-consumer_key = "olzksrVk97qC5pCYJFB0lTZva"
-consumer_secret = "5Kg5hQlx0PumRCygVrTxxb6lHO9C7OHgOphGCeZrZ2cQ1uwL1F"
-access_key = "1040408442765225991-YTfbydqnrVpx0W825HFi6aBjqaVcub"
-access_secret = "imxWQsgNdcSbBU6mYxmfeyUYLmpCyhorxYQfslyvpqacT"
+consumer_key = "consumer_key"
+consumer_secret = "consumer_secret"
+access_key = "access_key"
+access_secret = "access_secret"
 
 
 def get_all_tweets(screen_name):
