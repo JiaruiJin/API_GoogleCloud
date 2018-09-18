@@ -6,6 +6,10 @@ import tweepy
 from tweepy import OAuthHandler
 import json
 import wget
+from urllib.request import urlretrieve
+import subprocess
+import argparse
+import os
 
 consumer_key = "olzksrVk97qC5pCYJFB0lTZva"
 consumer_secret = "5Kg5hQlx0PumRCygVrTxxb6lHO9C7OHgOphGCeZrZ2cQ1uwL1F"
@@ -44,18 +48,21 @@ def get_all_tweets(screen_name):
         if(len(alltweets) > 15):
             break
         print( "...%s tweets downloaded so far" % (len(alltweets)))
-
-    #ger all media_url
-    media_files = set()
-    for status in alltweets:
-        media = status.entities.get('media', [])
-        if(len(media) > 0):
-          media_files.add(media[0]['media_url'])
-    
-    #download the pictures from media_url
-    for media_file in media_files:
-      wget.download(media_file)
        
+    picNum = 1
+    for status in alltweets:
+        entities = status._json.get('entities')
+        media = entities.get('media', [{}])
+        mediaDic = media[0]
+        mediaURL = mediaDic.get('media_url', '')
+        mediaName = str(picNum) + ".jpg"
+        if mediaURL != '':
+           URL = mediaURL
+           urlretrieve(URL, mediaName)
+           picNum += 1
+def mpegvideo():
+    ffmpeg_command = 'ffmpeg -framerate 0.25 -i %d.jpg output.mp4'
+    subprocess.call(ffmpeg_command, shell=True)
     #write tweet objects to JSON
     #file = open('tweet.json', 'w') 
     #print("Writing tweet objects to JSON please wait...")
@@ -66,6 +73,7 @@ def get_all_tweets(screen_name):
     #print("Done")
     #file.close()
 
-if __name__ == '__main__':
+if __name__ == '__main__': 
     #pass in the username of the account you want to download
     get_all_tweets("@Ibra_official")
+    mpegvideo()
