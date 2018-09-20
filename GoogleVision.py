@@ -1,5 +1,6 @@
 import io
 import os
+import os.path
 
 # Imports the Google Cloud client library
 from google.cloud import vision
@@ -16,7 +17,7 @@ def label():
                 num = num +1
 
 
-    i=0
+    i=1
     while (i<num):
         file_name = os.path.join(os.path.dirname(__file__),path+'/'+str(i)+'.jpg')
         with io.open(file_name, 'rb') as image_file:
@@ -31,5 +32,6 @@ def label():
             print(label.description)
         i += 1
  
-
-label()
+if __name__ == '__main__': 
+  path=os.getcwd()
+  label()
