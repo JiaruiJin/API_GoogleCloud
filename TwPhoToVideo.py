@@ -8,7 +8,6 @@ import json
 import wget
 from urllib.request import urlretrieve
 import subprocess
-import argparse
 import os
 
 consumer_key = "consumer_key"
