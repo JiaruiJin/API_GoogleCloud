@@ -63,15 +63,6 @@ def get_all_tweets(screen_name):
 def mpegvideo():
     ffmpeg_command = 'ffmpeg -framerate 0.25 -i %d.jpg output.mp4'
     subprocess.call(ffmpeg_command, shell=True)
-    #write tweet objects to JSON
-    #file = open('tweet.json', 'w') 
-    #print("Writing tweet objects to JSON please wait...")
-    #for status in alltweets:
-    #    json.dump(status._json,file,sort_keys = True,indent = 4)
-    
-    #close the file
-    #print("Done")
-    #file.close()
 
 if __name__ == '__main__': 
     #pass in the username of the account you want to download
