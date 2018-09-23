@@ -10,10 +10,10 @@ from urllib.request import urlretrieve
 import subprocess
 import os
 
-consumer_key = "consumer_key"
-consumer_secret = "consumer_secret"
-access_key = "access_key"
-access_secret = "access_secret"
+consumer_key = 'Enter the consumer_key'
+consumer_secret = 'Enter the consumer_secret'
+access_token = 'Enter the access_key'
+access_secret = 'Enter the access_secret'
 
 
 def get_all_tweets(screen_name):
@@ -34,16 +34,19 @@ def get_all_tweets(screen_name):
     oldest = alltweets[-1].id - 1
     
     #keep grabbing tweets until there are no tweets left to grab
-    while len(new_tweets) > 0:
-        
-        #all subsiquent requests use the max_id param to prevent duplicates
+    while (True):
+                #all subsiquent requests use the max_id param to prevent duplicates
         new_tweets = api.user_timeline(screen_name = screen_name,count=10,max_id=oldest)
-        
+
+        if (len(new_tweets) == 0):
+             break
+        else:
         #save most recent tweets
-        alltweets.extend(new_tweets)
+           alltweets.extend(new_tweets)
         
         #update the id of the oldest tweet less one
-        oldest = alltweets[-1].id - 1
+           oldest = alltweets[-1].id - 1
+            
         if(len(alltweets) > 15):
             break
         print( "...%s tweets downloaded so far" % (len(alltweets)))
@@ -59,6 +62,7 @@ def get_all_tweets(screen_name):
            URL = mediaURL
            urlretrieve(URL, mediaName)
            picNum += 1
+        
 def mpegvideo():
     ffmpeg_command = 'ffmpeg -framerate 0.25 -i %d.jpg output.mp4'
     subprocess.call(ffmpeg_command, shell=True)
