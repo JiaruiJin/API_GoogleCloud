@@ -18,7 +18,7 @@ def label():
 
 
     i=1
-    while (i<num):
+    while (i<num+1):
         file_name = os.path.join(os.path.dirname(__file__),path+'/'+str(i)+'.jpg')
         with io.open(file_name, 'rb') as image_file:
             content = image_file.read()
