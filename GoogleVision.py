@@ -9,6 +9,8 @@ from google.cloud.vision import types
 def label():
 
     client = vision.ImageAnnotatorClient()
+    os.chdir("D:\EC601\mini_project3\@ladygaga" )
+    path=os.getcwd()
     dir=path
     num=0
     for root,dirname,filenames in os.walk(dir):
@@ -33,5 +35,4 @@ def label():
         i += 1
  
 if __name__ == '__main__': 
-  path=os.getcwd()
   label()
