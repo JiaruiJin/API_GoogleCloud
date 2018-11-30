@@ -9,7 +9,7 @@ from google.cloud.vision import types
 def label():
 
     client = vision.ImageAnnotatorClient()
-    os.chdir("D:\EC601\mini_project3\@ladygaga" )
+    os.chdir("D:\EC601\mini_project3\@KicksFinder" )
     path=os.getcwd()
     dir=path
     num=0
