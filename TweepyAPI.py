@@ -51,23 +51,38 @@ def get_all_tweets(screen_name):
             break
         print( "...%s tweets downloaded so far" % (len(alltweets)))
        
+
+    directory = os.getcwd() + "/" + screen_name
+    try:
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        else:
+            print("already exsist")
+    except OSError:
+        print(('Error: Creating directory. ' + directory))
+
     picNum = 1
     for status in alltweets:
         entities = status._json.get('entities')
         media = entities.get('media', [{}])
         mediaDic = media[0]
         mediaURL = mediaDic.get('media_url', '')
-        mediaName = str(picNum) + ".jpg"
+        mediaName = directory + "/" + str(picNum) + ".jpg"
+
         if mediaURL != '':
-           URL = mediaURL
-           urlretrieve(URL, mediaName)
-           picNum += 1
-        
-def mpegvideo():
-    ffmpeg_command = 'ffmpeg -framerate 0.25 -i %d.jpg output.mp4'
+            URL = mediaURL
+            urlretrieve(URL, mediaName)
+            picNum += 1
+            if (picNum == 11):
+                print('already download 10 pictures')
+                break
+
+
+def mpegvideo(screen_name):
+    ffmpeg_command = 'ffmpeg -r 1  -i D:/EC601/mini_project3/@KicksFinder/%d.jpg  -y output.mp4'
     subprocess.call(ffmpeg_command, shell=True)
 
-if __name__ == '__main__': 
-    #pass in the username of the account you want to download
-    get_all_tweets("@Ibra_official")
-    mpegvideo()
+if __name__ == '__main__':
+    # pass in the username of the account you want to download
+    get_all_tweets("@KicksFinder")
+    mpegvideo("@KicksFinder")
