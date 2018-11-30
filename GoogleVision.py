@@ -10,6 +10,7 @@ def label():
 
     client = vision.ImageAnnotatorClient()
     os.chdir("D:\EC601\mini_project3\@KicksFinder" )
+    # the path is where pictures are stored
     path=os.getcwd()
     dir=path
     num=0
